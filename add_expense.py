@@ -46,7 +46,7 @@ def show_add_expense(frame, userid):
 
     expense_type_label = ctk.CTkLabel(form_frame, text="Expense Type", font=("Ubuntu", 16, "bold"), text_color="#FFFFFF")
     expense_type_label.grid(row=1, column=0, padx=(20, 10), pady=(20, 20), sticky="e")
-    expense_type_combobox = ctk.CTkComboBox(form_frame, values=["Food & Dining", "Transportation", "Housing", "Entertainment", "Other", "Income"], font=("Ubuntu", 16), width=300, fg_color="#444", text_color="#FFFFFF")
+    expense_type_combobox = ctk.CTkComboBox(form_frame, values=["Groceries", "Food & Dining", "Transportation", "Housing", "Education", "Utilities", "Shopping", "Health", "Entertainment", "Insurance" ,"Other", "Income"], font=("Ubuntu", 16), width=300, fg_color="#444", text_color="#FFFFFF")
     expense_type_combobox.grid(row=1, column=1, padx=(10, 20), pady=(20, 20), sticky="w")
 
     date_label = ctk.CTkLabel(form_frame, text="Date (dd/mm/yyyy)", font=("Ubuntu", 16, "bold"), text_color="#FFFFFF")

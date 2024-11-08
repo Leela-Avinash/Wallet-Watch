@@ -66,13 +66,21 @@ def show_view_analysis(frame, userid):
 
     def visualize_data(df, category_filter=None):
         global fig
+        # ["Groceries", "Food & Dining", "Transportation", "Housing", "Education", "Utilities", "Shopping", "Health", "Entertainment", "Insurance" ,"Other", "Income"]
         category_colors = {
-            "Food & Dining": "#DC3912",
-            "Transportation": "#3366CC",
-            "Housing": "#109618",
-            "Entertainment": "#FF9900",
-            "Other": "#990099"
+            "Groceries": "#FF5733",          
+            "Food & Dining": "#FFC300",     
+            "Transportation": "#007ACC",   
+            "Housing": "#29A745",            
+            "Education": "#FF6F61",        
+            "Utilities": "#9C27B0",         
+            "Shopping": "#FF4081",       
+            "Health": "#00BFA5",         
+            "Entertainment": "#CD4500",     
+            "Insurance": "#C2185B",      
+            "Other": "#2196F3"            
         }
+
 
         fig, axes = plt.subplots(1, 2 if not category_filter else 1, figsize=(10, 5.5))
         fig.patch.set_facecolor("#333")
@@ -191,7 +199,7 @@ def show_view_analysis(frame, userid):
 
     category_label = ctk.CTkLabel(frame, text="Category", text_color="#fff", font=("Arial", 12))
     category_label.grid(row=0, column=1, padx=10, pady=10)
-    category_combobox = ctk.CTkComboBox(frame, values=["All", "Food & Dining", "Transportation", "Housing", "Entertainment", "Other", "Income"])
+    category_combobox = ctk.CTkComboBox(frame, values=["All", "Groceries", "Food & Dining", "Transportation", "Housing", "Education", "Utilities", "Shopping", "Health", "Entertainment", "Insurance" ,"Other", "Income"])
     category_combobox.grid(row=0, column=2, padx=10, pady=10)
 
     amount_label = ctk.CTkLabel(frame, text="Amount Range", text_color="#fff", font=("Arial", 12))

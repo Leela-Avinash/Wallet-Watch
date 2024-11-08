@@ -58,7 +58,7 @@ def show_view_data(frame, userid):
 
     category_label = ctk.CTkLabel(frame, text="Category", text_color="#FFFFFF", font=("Arial", 12))
     category_label.grid(row=0, column=1, padx=10, pady=10)
-    category_combobox = ctk.CTkComboBox(frame, values=["All", "Food & Dining", "Transportation", "Housing", "Entertainment", "Other", "Income"], text_color="#FFFFFF", bg_color="#333333", button_color="#444444", button_hover_color="#555555")
+    category_combobox = ctk.CTkComboBox(frame, values=["All", "Groceries", "Food & Dining", "Transportation", "Housing", "Education", "Utilities", "Shopping", "Health", "Entertainment", "Insurance" ,"Other", "Income"], text_color="#FFFFFF", bg_color="#333333", button_color="#444444", button_hover_color="#555555")
     category_combobox.grid(row=0, column=2, padx=10, pady=10)
 
     amount_label = ctk.CTkLabel(frame, text="Amount Range", text_color="#FFFFFF", font=("Arial", 12))
