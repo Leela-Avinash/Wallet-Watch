@@ -13,6 +13,7 @@ def signUp_page(frame1, app):
         get_userid = userid_entry.get()
         get_name = name_entry.get()
         get_password = password_entry.get()
+        print(get_userid, get_name, get_password)
         if get_userid == "" or get_name == "" or get_password == "":
             tk.messagebox.showerror("Sign Up info", "All fields are required.")
             return
@@ -75,7 +76,7 @@ def signUp_page(frame1, app):
 
     name = ctk.CTkLabel(
         master=frame2,
-        text="Name",
+        text="Full Name",
         font=("Century Gothic", 15, 'bold'),
         text_color="#fff",
     )

@@ -25,15 +25,26 @@ def second_page(frame1, userid, app):
         show_frame(analyze_data_frame)
         show_view_analysis(analyze_data_frame, userid)
 
+    from datetime import datetime
+
     def load_user_summary():
+        now = datetime.now()
+        current_year = now.year
+        current_month = now.month
+
         expenses = list(db.expense.find({"userid": userid}))
         if not expenses:
             income = total_expense = 0
         else:
             df = pd.DataFrame(expenses)
-            income = df[df['expense_type'] == 'Income']['amount'].sum()
-            total_expense = df[df['expense_type'] != 'Income']['amount'].sum()
-        
+
+            df['date'] = pd.to_datetime(df['date'])
+
+            monthly_data = df[(df['date'].dt.year == current_year) & (df['date'].dt.month == current_month)]
+
+            income = monthly_data[monthly_data['expense_type'] == 'Income']['amount'].sum()
+            total_expense = monthly_data[monthly_data['expense_type'] != 'Income']['amount'].sum()
+
         income_label.configure(text=f"Income: ${income}")
         expense_label.configure(text=f"Total Expense: ${total_expense}")
 

@@ -50,7 +50,7 @@ def first_page(app):
     l2.place(x=120, y=40)
     l3 = ctk.CTkLabel(
         master=frame2,
-        text="UserId",
+        text="Username",
         font=("Century Gothic", 15, 'bold'),
         text_color="#fff",
     )
