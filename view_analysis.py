@@ -10,9 +10,12 @@ from fpdf import FPDF
 from db import db
 
 global fig
+global summary_frame
 
 def show_view_analysis(frame, userid):
-    global fig 
+    global fig
+    global summary_frame 
+    summary_frame = None
 
     for widget in frame.winfo_children():
         widget.destroy()
@@ -66,7 +69,6 @@ def show_view_analysis(frame, userid):
 
     def visualize_data(df, category_filter=None):
         global fig
-        # ["Groceries", "Food & Dining", "Transportation", "Housing", "Education", "Utilities", "Shopping", "Health", "Entertainment", "Insurance" ,"Other", "Income"]
         category_colors = {
             "Groceries": "#FF5733",          
             "Food & Dining": "#FFC300",     
@@ -116,11 +118,17 @@ def show_view_analysis(frame, userid):
         return fig
 
     def display_summary(df):
+        global summary_frame
+
+        if summary_frame:
+            summary_frame.destroy()
+
         df["date"] = pd.to_datetime(df["date"])
         daily_totals = df.groupby("date")["amount"].sum()
         max_expense_date = daily_totals.idxmax()
         min_expense_date = daily_totals.idxmin()
 
+        # Create a new summary frame
         summary_frame = ctk.CTkFrame(frame, fg_color="#2d2d2d", corner_radius=15)
         summary_frame.place(relx=0.75, rely=0.52, anchor="center", relwidth=0.25)
 
