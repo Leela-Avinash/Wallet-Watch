@@ -8,6 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from fpdf import FPDF
 from db import db
+import matplotlib.dates as mdates
 
 global fig
 global summary_frame
@@ -82,13 +83,11 @@ def show_view_analysis(frame, userid):
             "Insurance": "#C2185B",      
             "Other": "#2196F3"            
         }
-
-
         fig, axes = plt.subplots(1, 2 if not category_filter else 1, figsize=(10, 5.5))
         fig.patch.set_facecolor("#333")
 
         if not category_filter:
-            sns.barplot(data=df[df["expense_type"] != "Income"], x="expense_type", y="amount", ax=axes[0], estimator=sum, errorbar=None, palette=category_colors)
+            sns.barplot(data=df[df["expense_type"] != "Income"], x="expense_type", y="amount", ax=axes[0], estimator=sum, errorbar=None, palette=category_colors, hue="expense_type", dodge=False, legend=False)
             axes[0].set_title("Total Expenses by Category", pad=20, color="white", fontsize=12)
             axes[0].set_xlabel("Category", color='white')
             axes[0].set_ylabel("Amount", color='white')
@@ -100,15 +99,20 @@ def show_view_analysis(frame, userid):
             axes[1].pie(df_expense_only, labels=df_expense_only.index, autopct='%1.1f%%', colors=category_colors_pie, textprops={'color': "white"})
             axes[1].set_title("Expense Distribution by Category", color='white')
         else:
+            df["date"] = pd.to_datetime(df["date"], errors='coerce')
             sns.lineplot(data=df, x="date", y="amount", ax=axes, color="blue")
             axes.set_title(f"Expenses Over Time for {category_filter}", pad=20, color="white", fontsize=12)
             axes.set_xlabel("Date", color='white')
             axes.set_ylabel("Amount", color='white')
-            axes.tick_params(axis='x', rotation=45, color='white')
-            axes.tick_params(axis='y', color='white')
-            axes.set_xticks(df["date"])
-            axes.set_xticklabels(axes.get_xticks(), color='white')
-            axes.set_yticklabels(axes.get_yticks(), color='white')
+            axes.tick_params(axis='x', rotation=45, colors='white')
+            axes.tick_params(axis='y', colors='white')
+
+            axes.grid(True, color='#444', linestyle='--', linewidth=0.5)
+
+            axes.xaxis.set_major_locator(mdates.AutoDateLocator())
+            axes.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+
+            axes.scatter(df["date"], df["amount"], color="blue", s=50, zorder=5) 
 
         plt.tight_layout()
         canvas = FigureCanvasTkAgg(fig, master=frame)
@@ -128,7 +132,6 @@ def show_view_analysis(frame, userid):
         max_expense_date = daily_totals.idxmax()
         min_expense_date = daily_totals.idxmin()
 
-        # Create a new summary frame
         summary_frame = ctk.CTkFrame(frame, fg_color="#2d2d2d", corner_radius=15)
         summary_frame.place(relx=0.75, rely=0.52, anchor="center", relwidth=0.25)
 
